@@ -39,6 +39,7 @@ jobs:
             any::qdapRegex
             any::scales
             any::numform
+          needs: check
 
       - name: Query dependencies
         run: |
