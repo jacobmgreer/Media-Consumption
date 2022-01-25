@@ -34,11 +34,6 @@ jobs:
           extra-packages: |
             any::rvest
             any::tidyverse
-            any::magrittr
-            any::jsonlite
-            any::qdapRegex
-            any::scales
-            any::numform
           needs: check
 
       - name: Query dependencies
