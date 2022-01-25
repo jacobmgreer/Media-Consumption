@@ -34,7 +34,6 @@ jobs:
           extra-packages: |
             any::rvest
             any::tidyverse
-          needs: check
 
       - name: Query dependencies
         run: |

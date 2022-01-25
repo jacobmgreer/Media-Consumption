@@ -21,4 +21,5 @@ for (i in 1:ceiling(count/100)) {
   IMDBratings <- rbind(IMDBratings, page)
   nextlink <- paste0("https://www.imdb.com",link %>% html_nodes(.,'#ratings-container > div.footer.filmosearch > div > div > a.flat-button.lister-page-next.next-page') %>% html_attr("href"))
 }
-save(IMDBratings, file = paste0("vinyl/data_", make.names(Sys.time()), ".Rda"))
+
+write.csv(IMDBratings,paste0("vinyl/data_", make.names(Sys.time()), ".csv"), row.names = FALSE)
