@@ -2,7 +2,6 @@ Package: Vinyl.Tracker
 Title: Track My Vinyl Collection
 Version: 1.0.0
 Authors@R: 
-Authors@R: 
     person(given = "Jacob",
            family = "Greer",
            role = c("aut", "cre"),
