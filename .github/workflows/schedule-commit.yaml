@@ -28,6 +28,17 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
 
       - uses: r-lib/actions/setup-pandoc@master
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          cache-version: 2
+          extra-packages: |
+            any::rvest
+            any::tidyverse
+            any::magrittr
+            any::jsonlite
+            any::gdapRegex
+            any::scales
+            any::numform
 
       - name: Query dependencies
         run: |
