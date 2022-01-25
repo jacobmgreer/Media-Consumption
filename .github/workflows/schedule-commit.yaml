@@ -36,7 +36,7 @@ jobs:
             any::tidyverse
             any::magrittr
             any::jsonlite
-            any::gdapRegex
+            any::qdapRegex
             any::scales
             any::numform
 
