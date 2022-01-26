@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/6 * * * *"
 
 jobs:
   generate-data:
@@ -28,14 +28,25 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
 
       - name: Install packages
+        run:
+          Rscript -e "install.packages(c('rvest', 'tidyr', 'httr', 'readr'))"
+
+      - name: Cache R packages
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+
+      - name: Install dependencies
         run: |
-          R -e 'install.packages("tidyr")'
-          R -e 'install.packages("httr")'
-          R -e 'install.packages("readr")'
-          R -e 'install.packages("rvest")'
+          remotes::install_deps(dependencies = TRUE)
+        shell: Rscript {0}
 
       - name: Generate data
-        run: Rscript R/script.R
+        run: |
+          source("R/script.R")
+        shell: Rscript {0}
 
       - name: Commit files
         run: |
@@ -44,3 +55,9 @@ jobs:
           git add --all
           git commit -am "add data"
           git push
+
+      - name: Session info
+        run: |
+          options(width = 100)
+          pkgs <- installed.packages()[, "Package"]
+          sessioninfo::session_info(pkgs, include_base = TRUE)
