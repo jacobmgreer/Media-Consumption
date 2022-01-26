@@ -4,26 +4,49 @@ on:
 
 jobs:
   generate-data:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2 # Checkout branch into the runner
-      - uses: r-lib/actions/setup-r@master # Set up R runtime
-        with:
-          r-version: 'release'
+    runs-on: ${{ matrix.config.os }}
 
-      - name: Setup renv # Set up R env to install packages
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {os: ubuntu-latest,   r: 'release'}
+
+    env:
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      RSPM: ${{ matrix.config.rspm }}
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-r@master
+        with:
+          r-version: ${{ matrix.config.r }}
+          http-user-agent: ${{ matrix.config.http-user-agent }}
+
+      - name: Query dependencies
         run: |
           install.packages('remotes')
-          remotes::install_github("rstudio/renv")
+          install.packages('sessioninfo')
           install.packages(c('rvest', 'tidyr', 'httr', 'readr'))
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
         shell: Rscript {0}
 
-      - uses: actions/cache@v2 # Cache packages so won't be compiled everytime job is run
+      - name: Cache R packages
+        uses: actions/cache@v1
         with:
-          path: ~/.local/share/renv
-          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-renv-
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+
+      - name: Install dependencies
+        run: |
+          remotes::install_deps(dependencies = TRUE)
+        shell: Rscript {0}
 
       - name: Generate data
         run: |
