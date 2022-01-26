@@ -1,5 +1,5 @@
-required <- c("rvest", "tidyr", "httr", "stringr", "readr")
-lapply(required, require, character.only = TRUE)
+required <- c("rvest", "tidyr", "httr", "readr")
+lapply(required, library, character.only = TRUE)
 
 ## load Personal Ratings on IMDB
 nextlink <- 'https://www.imdb.com/user/ur28723514/ratings/'
