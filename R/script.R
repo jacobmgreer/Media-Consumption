@@ -1,4 +1,4 @@
-required <- c("rvest", "tidyverse")
+required <- c("rvest", "tidyr", "httr", "stringr", "readr")
 lapply(required, require, character.only = TRUE)
 
 ## load Personal Ratings on IMDB
