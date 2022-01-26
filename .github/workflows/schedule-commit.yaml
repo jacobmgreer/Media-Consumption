@@ -28,7 +28,7 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
 
       - name: Install dependencies
-        run: Rscript -e 'install.packages(c("rvest","dplyr","httr","readr"))'
+        run: Rscript -e 'install.packages(c("rvest","tidyverse"))'
 
       - name: Cache R packages
         uses: actions/cache@v1
