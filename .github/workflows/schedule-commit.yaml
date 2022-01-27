@@ -24,6 +24,7 @@ jobs:
       - name: Run Script
         env:
             RATINGS: ${{ secrets.RATINGS }}
+            RECORDS: ${{ secrets.RECORDS }}
         run: Rscript R/script.R
 
       - name: Commit files
