@@ -2,7 +2,7 @@ name: Testing Engine!
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "0 3 * * *"
 
 jobs:
   generate-data:
