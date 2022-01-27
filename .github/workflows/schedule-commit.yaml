@@ -22,6 +22,8 @@ jobs:
             any::rvest
 
       - name: Run Script
+        env:
+            RATINGS: ${{ secrets.RATINGS }}
         run: Rscript R/script.R
 
       - name: Commit files

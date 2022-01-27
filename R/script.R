@@ -1,16 +1,17 @@
 library(tidyverse)
 library(rvest)
 
-## load Personal Ratings on IMDB
-nextlink <- 'https://www.imdb.com/user/ur28723514/ratings/'
+RATINGS <- Sys.getenv("RATINGS")
+
 count <-
-  read_html(nextlink) %>%
+  read_html(RATINGS) %>%
   html_nodes(., '#lister-header-current-size') %>%
   html_text(.) %>%
   parse_number(.)
-IMDBratings <- data.frame()
+
+rated <- data.frame()
 for (i in 1:ceiling(count/100)) {
-  link <- read_html(nextlink)
+  link <- read_html(RATINGS)
   page <-
     data.frame(
       ItemTitle= link %>% html_nodes(.,'.lister-item-header a:first-of-type') %>% html_text(.) %>% gsub("^\\s+|\\s+$", "", .),
@@ -18,8 +19,8 @@ for (i in 1:ceiling(count/100)) {
       Rating= link %>% html_nodes(.,'div.lister-item-content > div.ipl-rating-widget > div.ipl-rating-star.ipl-rating-star--other-user.small > span.ipl-rating-star__rating') %>% html_text(.),
       Rated.Date= link %>% html_nodes(.,'div.ipl-rating-widget + p') %>% html_text(.)
     )
-  IMDBratings <- rbind(IMDBratings, page)
-  nextlink <- paste0("https://www.imdb.com",link %>% html_nodes(.,'#ratings-container > div.footer.filmosearch > div > div > a.flat-button.lister-page-next.next-page') %>% html_attr("href"))
+  rated <- rbind(rated, page)
+  RATINGS <- paste0("https://www.imdb.com",link %>% html_nodes(.,'#ratings-container > div.footer.filmosearch > div > div > a.flat-button.lister-page-next.next-page') %>% html_attr("href"))
 }
 
-write.csv(IMDBratings,paste0("vinyl/data_", make.names(Sys.time()), ".csv"), row.names = FALSE)
+write.csv(rated, "vinyl/ratings.csv", row.names = FALSE)
