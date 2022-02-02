@@ -22,6 +22,7 @@ jobs:
           extra-packages: |
             any::tidyverse
             any::rvest
+            any::jsonlite
 
       - name: Ratings
         env:
