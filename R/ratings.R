@@ -2,6 +2,9 @@ library(tidyverse)
 library(rvest)
 
 RATINGS <- Sys.getenv("RATINGS")
+OMDBkey <- Sys.getenv("OMDB")
+
+ratingslist <- read_csv("raw-lists/ratings.csv")
 
 ## MOVIE RATINGS
 count <-
@@ -24,4 +27,22 @@ for (i in 1:ceiling(count/100)) {
   RATINGS <- paste0("https://www.imdb.com",link %>% html_nodes(.,'#ratings-container > div.footer.filmosearch > div > div > a.flat-button.lister-page-next.next-page') %>% html_attr("href"))
 }
 
-write.csv(rated, "datasets/ratings.csv", row.names = FALSE)
+
+test <- anti_join(rated, ratingslist, by="IMDBid") %>%
+  rowwise %>%
+  mutate(Response = list(fromJSON(content(GET(paste0('https://www.omdbapi.com/?i=',IMDBid,OMDBkey)), 'text'), simplifyVector = TRUE, flatten = TRUE))) %>%
+  unnest_wider(Response) %>%
+  filter(Response != "False") %>%
+  unnest(cols = c(Ratings), names_sep = ".") %>%
+  spread(Ratings.Source, Ratings.Value) %>%
+  select(-c(DVD,BoxOffice,Production,Website,Response)) %>%
+  mutate(
+    Rated.Date = as.character(as.Date(str_remove(Rated.Date, "Rated on "), format = "%d %b %Y")),
+    Rated.Year = as.double(paste0(year(Rated.Date),".",yday(Rated.Date))),
+    Released = year(as.Date(Released, format = "%d %b %Y")),
+    Rating = as.numeric(Rating)
+  ) %>%
+  arrange(desc(Rated.Date))
+
+bind_rows(ratingslist, test) %>%
+write.csv(., "datasets/ratings.csv", row.names = FALSE)
