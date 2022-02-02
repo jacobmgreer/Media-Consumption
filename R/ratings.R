@@ -30,7 +30,6 @@ for (i in 1:ceiling(count/100)) {
   RATINGS <- paste0("https://www.imdb.com",link %>% html_nodes(.,'#ratings-container > div.footer.filmosearch > div > div > a.flat-button.lister-page-next.next-page') %>% html_attr("href"))
 }
 
-
 test <- anti_join(rated, ratingslist, by="IMDBid") %>%
   rowwise %>%
   mutate(Response = list(fromJSON(content(GET(paste0('https://www.omdbapi.com/?i=',IMDBid,OMDBkey)), 'text'), simplifyVector = TRUE, flatten = TRUE))) %>%
@@ -43,8 +42,7 @@ test <- anti_join(rated, ratingslist, by="IMDBid") %>%
     Rated.Date = as.character(as.Date(str_remove(Rated.Date, "Rated on "), format = "%d %b %Y")),
     Rated.Year = as.double(paste0(year(Rated.Date),".",yday(Rated.Date))),
     Released = year(as.Date(Released, format = "%d %b %Y"))
-  ) %>%
-  arrange(desc(Rated.Date))
+  )
 
 bind_rows(ratingslist, test) %>%
 write.csv(., "datasets/ratings.csv", row.names = FALSE)
