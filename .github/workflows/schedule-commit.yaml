@@ -1,8 +1,10 @@
 name: Testing Engine!
 
+# "0 3 * * *"
+
 on:
   schedule:
-    - cron: "0 3 * * *"
+    - cron: "*/15 * * * *"
 
 jobs:
   generate-data:
@@ -21,11 +23,15 @@ jobs:
             any::tidyverse
             any::rvest
 
-      - name: Run Script
+      - name: Ratings
         env:
             RATINGS: ${{ secrets.RATINGS }}
+        run: Rscript R/ratings.R
+
+      - name: Vinyl Collection
+        env:
             RECORDS: ${{ secrets.RECORDS }}
-        run: Rscript R/script.R
+        run: Rscript R/vinyl.R
 
       - name: Commit files
         run: |
