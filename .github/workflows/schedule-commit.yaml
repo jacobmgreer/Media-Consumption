@@ -23,6 +23,8 @@ jobs:
             any::tidyverse
             any::rvest
             any::jsonlite
+            any::lubridate
+            any::httr
 
       - name: Ratings
         env:

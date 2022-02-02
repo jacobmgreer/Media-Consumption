@@ -1,6 +1,8 @@
 library(tidyverse)
 library(rvest)
 library(jsonlite)
+library(httr)
+library(lubridate)
 
 RATINGS <- Sys.getenv("RATINGS")
 OMDBkey <- Sys.getenv("OMDB")
