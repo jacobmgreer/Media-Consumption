@@ -25,7 +25,7 @@ for (i in 1:ceiling(count/100)) {
   RATINGS <- paste0("https://www.imdb.com",link %>% html_nodes(.,'#ratings-container > div.footer.filmosearch > div > div > a.flat-button.lister-page-next.next-page') %>% html_attr("href"))
 }
 
-write.csv(rated, "vinyl/ratings.csv", row.names = FALSE)
+write.csv(rated, "datasets/ratings.csv", row.names = FALSE)
 
 ## VINYL COLLECTION
 count <-
@@ -50,4 +50,4 @@ for (i in 1:ceiling(count/250)) {
   RECORDS <- paste0(RECORDS,i,"&limit=250&header=1&layout=big")
 }
 
-write.csv(rated, "vinyl/albums.csv", row.names = FALSE)
+write.csv(rated, "datasets/albums.csv", row.names = FALSE)
