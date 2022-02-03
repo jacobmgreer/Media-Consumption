@@ -3,10 +3,9 @@ name: Testing Engine!
 
 on: [workflow_dispatch]
 
-# "0 3 * * *"
 # on:
 #   schedule:
-#     - cron: "*/5 * * * *"
+#     - cron: "0 3 * * *"
 
 jobs:
   generate-data:
