@@ -1,7 +1,7 @@
 name: Testing Engine!
 
 
-on: repository_dispatch
+on: [workflow_dispatch]
 
 # "0 3 * * *"
 # on:
