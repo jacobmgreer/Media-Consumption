@@ -42,7 +42,8 @@ test <- anti_join(rated, ratingslist, by="IMDBid") %>%
     Rated.Date = as.Date(str_remove(Rated.Date, "Rated on "), format = "%d %b %Y"),
     Rated.Year = as.double(paste0(year(Rated.Date),".",yday(Rated.Date))),
     Released = year(as.Date(Released, format = "%d %b %Y")),
-    Rating = as.numeric(Rating)
+    Rating = as.numeric(Rating),
+    imdbVotes = as.double(imdbVotes)
   )
 
 bind_rows(ratingslist, test) %>%
