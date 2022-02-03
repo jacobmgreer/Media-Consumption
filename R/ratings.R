@@ -52,6 +52,16 @@ myratings <- bind_rows(ratingslist, test) %>%
   select(-Title) %T>%
   write.csv(., "datasets/ratings.csv", row.names = FALSE)
 
+## Prime Availability
+
+Streaming.Available <-
+  rbind(read_csv("raw-lists/Prime-Docs.csv") %>%
+          mutate(Service = "Prime") %>%
+          mutate(Type = "Documentary"),
+        read_csv("raw-lists/Prime-Films.csv") %>%
+          mutate(Service = "Prime") %>%
+          mutate(Type = "Feature Film"))
+
 ## NYT-1000 Data for Summary and Graph
 
 nyt1000 <- read_csv("raw-lists/nyt1000.csv")
