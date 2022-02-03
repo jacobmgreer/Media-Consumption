@@ -27,6 +27,7 @@ jobs:
             any::lubridate
             any::httr
             any::magrittr
+            any::numform
 
       - name: Ratings
         env:

@@ -4,6 +4,7 @@ library(jsonlite)
 library(httr)
 library(lubridate)
 library(magrittr)
+library(numform)
 
 RATINGS <- Sys.getenv("RATINGS")
 OMDBkey <- Sys.getenv("OMDB")
