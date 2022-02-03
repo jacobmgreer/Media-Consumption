@@ -95,9 +95,8 @@ left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.
   write.csv(.,"datasets/Oscars/OscarsSummary.csv", row.names = FALSE)
 
 ## NYT-1000 Data for Summary and Graph
-nyt1000 <- read_csv("raw-lists/nyt1000.csv")
 combinedNYT1000 <-
-  left_join(nyt1000, myratings %>% select(IMDBid, Rating, Rated.Date), by="IMDBid") %>%
+  left_join(read_csv("raw-lists/nyt1000.csv"), myratings %>% select(IMDBid, Rating, Rated.Date), by="IMDBid") %>%
     mutate(Seen = ifelse(is.na(Rating), "No", "Yes")) %>%
     left_join(., Streaming.Available, by="IMDBid") %T>%
     write.csv(.,"datasets/NYT1000/NYT1000Data.csv", row.names = FALSE)
@@ -110,19 +109,19 @@ combinedNYT1000 %>%
   write.csv(.,"datasets/NYT1000/NYT1000Summary.csv", row.names = FALSE)
 
 ## Great Films Ebert
-left_join(IMDBebert, myratings %>% select(IMDBid, Rating, Rated.Date), by="IMDBid") %>%
+left_join(read_csv("raw-lists/ebert.csv"), myratings %>% select(IMDBid, Rating, Rated.Date), by="IMDBid") %>%
   mutate(Decade = paste0(10 * floor(as.numeric(ItemYear)/10),"s")) %>%
   mutate(Seen = ifelse(is.na(Rating), "No", "Yes")) %>%
   left_join(., Streaming.Available, by="IMDBid") %>%
   write.csv(.,"datasets/GreatFilmsEbert/Data.csv", row.names = FALSE)
 ## AFI Top 100 from 1998
-left_join(IMDBafi1998, myratings %>% select(IMDBid, Rating, Rated.Date), by="IMDBid") %>%
+left_join(read_csv("raw-lists/afi1998.csv"), myratings %>% select(IMDBid, Rating, Rated.Date), by="IMDBid") %>%
   mutate(Decade = paste0(10 * floor(as.numeric(ItemYear)/10),"s")) %>%
   mutate(Seen = ifelse(is.na(Rating), "No", "Yes")) %>%
   left_join(., Streaming.Available, by="IMDBid") %>%
   write.csv(.,"datasets/AFITop100/1998/Data.csv", row.names = FALSE)
 ## AFI Top 100 from 2007
-left_join(IMDBafi2007, myratings %>% select(IMDBid, Rating, Rated.Date), by="IMDBid") %>%
+left_join(read_csv("raw-lists/afi2007.csv"), myratings %>% select(IMDBid, Rating, Rated.Date), by="IMDBid") %>%
   mutate(Decade = paste0(10 * floor(as.numeric(ItemYear)/10),"s")) %>%
   mutate(Seen = ifelse(is.na(Rating), "No", "Yes")) %>%
   left_join(., Streaming.Available, by="IMDBid") %>%
