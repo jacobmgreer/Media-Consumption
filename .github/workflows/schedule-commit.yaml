@@ -1,10 +1,12 @@
 name: Testing Engine!
 
-# "0 3 * * *"
 
-on:
-  schedule:
-    - cron: "*/5 * * * *"
+on: repository_dispatch
+
+# "0 3 * * *"
+# on:
+#   schedule:
+#     - cron: "*/5 * * * *"
 
 jobs:
   generate-data:
@@ -32,10 +34,10 @@ jobs:
             OMDB: ${{ secrets.OMDB }}
         run: Rscript R/ratings.R
 
-      - name: Vinyl Collection
-        env:
-            RECORDS: ${{ secrets.RECORDS }}
-        run: Rscript R/vinyl.R
+      # - name: Vinyl Collection
+      #   env:
+      #       RECORDS: ${{ secrets.RECORDS }}
+      #   run: Rscript R/vinyl.R
 
       - name: Commit files
         run: |
