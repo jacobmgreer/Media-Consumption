@@ -46,5 +46,25 @@ test <- anti_join(rated, ratingslist, by="IMDBid") %>%
     imdbVotes = as.double(imdbVotes)
   )
 
-bind_rows(ratingslist, test) %>%
-write.csv(., "datasets/ratings.csv", row.names = FALSE)
+myratings <- bind_rows(ratingslist, test) %>%
+  arrange(desc(Rated.Date)) %>%
+  select(-Title) %T>%
+  write.csv(., "datasets/ratings.csv", row.names = FALSE)
+
+## NYT-1000 Data for Summary and Graph
+
+nyt1000 <- read_csv("raw-lists/nyt1000.csv")
+
+combinedNYT1000 <-
+  left_join(nyt1000, myratings %>% select(IMDBid, Rating, Rated.Date), by="IMDBid") %>%
+    mutate(Seen = ifelse(is.na(Rating), "No", "Yes")) %>%
+    left_join(., Streaming.Available, by="IMDBid") %T>%
+    write.csv(.,"datasets/NYT1000/NYT1000Data.csv", row.names = FALSE)
+
+  combinedNYT1000 %>%
+    dplyr::group_by(ItemYear = as.numeric(ItemYear)) %>%
+    dplyr::summarize(
+      Y = n_distinct(IMDBid[Seen == "Yes"]),
+      N = n_distinct(IMDBid[Seen == "No"])) %>%
+    select(ItemYear, Y, N) %>%
+    write.csv(.,"datasets/NYT1000/NYT1000Summary.csv", row.names = FALSE)
