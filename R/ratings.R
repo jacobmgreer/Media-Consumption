@@ -53,7 +53,6 @@ myratings <- bind_rows(ratingslist, test) %>%
   write.csv(., "datasets/ratings.csv", row.names = FALSE)
 
 ## Prime Availability
-
 Streaming.Available <-
   rbind(read_csv("raw-lists/Prime-Docs.csv") %>%
           mutate(Service = "Prime") %>%
@@ -62,20 +61,70 @@ Streaming.Available <-
           mutate(Service = "Prime") %>%
           mutate(Type = "Feature Film"))
 
+## Oscar Ceremony Data for Summary and Graph
+OscarCeremonies.corrected <- read_csv("raw-lists/OscarCeremonies.csv")
+left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.Date), by=c("FilmID" = "IMDBid")) %>%
+  write.csv(.,"datasets/Oscars/OscarsTracking.csv", row.names = FALSE)
+left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.Date), by=c("FilmID" = "IMDBid")) %>%
+  filter(FilmID != "") %>%
+  mutate(AwardWinner = ifelse(AwardWinner == "Winner",TRUE,FALSE)) %>%
+  select(AwardCeremony, AwardWinner, FilmID, Rating) %>%
+  distinct %>%
+  dplyr::group_by(FilmID) %>%
+  dplyr::mutate(
+    filmwon=ifelse(any(AwardWinner),TRUE,FALSE),
+    filmwon=ifelse(all(is.na(filmwon)),FALSE,filmwon)
+  ) %>%
+  dplyr::mutate(keep_row=ifelse(filmwon,AwardWinner,TRUE)) %>%
+  dplyr::filter(!(filmwon == TRUE & is.na(keep_row))) %>%
+  ungroup %>%
+  mutate(
+    Seen = ifelse(is.na(Rating), FALSE, TRUE),
+    Year = sub('.*-', '', AwardCeremony),
+    Ceremony = ifelse(f_ordinal(sub("\\-.*", "", str_remove(AwardCeremony, "^0+"))) == 13, "13th", f_ordinal(sub("\\-.*", "", str_remove(AwardCeremony, "^0+")))),
+    Menu = paste0("<h5>",Ceremony," Academy Awards</h5><h1>",Year,"</h1>")) %>%
+  dplyr::group_by(AwardCeremony, Year) %>%
+  dplyr::summarise(
+    Winner.Y = n_distinct(FilmID[Seen == TRUE & AwardWinner == TRUE]),
+    Winner.N = n_distinct(FilmID[Seen == FALSE & AwardWinner == TRUE]),
+    Nominee.Y = n_distinct(FilmID[Seen == TRUE & is.na(AwardWinner)]),
+    Nominee.N = n_distinct(FilmID[Seen == FALSE & is.na(AwardWinner)])) %>%
+  arrange(Year) %>%
+  select(-Year) %>%
+  write.csv(.,"datasets/Oscars/OscarsSummary.csv", row.names = FALSE)
+
 ## NYT-1000 Data for Summary and Graph
-
 nyt1000 <- read_csv("raw-lists/nyt1000.csv")
-
 combinedNYT1000 <-
   left_join(nyt1000, myratings %>% select(IMDBid, Rating, Rated.Date), by="IMDBid") %>%
     mutate(Seen = ifelse(is.na(Rating), "No", "Yes")) %>%
     left_join(., Streaming.Available, by="IMDBid") %T>%
     write.csv(.,"datasets/NYT1000/NYT1000Data.csv", row.names = FALSE)
+combinedNYT1000 %>%
+  dplyr::group_by(ItemYear = as.numeric(ItemYear)) %>%
+  dplyr::summarize(
+    Y = n_distinct(IMDBid[Seen == "Yes"]),
+    N = n_distinct(IMDBid[Seen == "No"])) %>%
+  select(ItemYear, Y, N) %>%
+  write.csv(.,"datasets/NYT1000/NYT1000Summary.csv", row.names = FALSE)
 
-  combinedNYT1000 %>%
-    dplyr::group_by(ItemYear = as.numeric(ItemYear)) %>%
-    dplyr::summarize(
-      Y = n_distinct(IMDBid[Seen == "Yes"]),
-      N = n_distinct(IMDBid[Seen == "No"])) %>%
-    select(ItemYear, Y, N) %>%
-    write.csv(.,"datasets/NYT1000/NYT1000Summary.csv", row.names = FALSE)
+## Great Films Ebert
+left_join(IMDBebert, myratings %>% select(IMDBid, Rating, Rated.Date), by="IMDBid") %>%
+  mutate(Decade = paste0(10 * floor(as.numeric(ItemYear)/10),"s")) %>%
+  mutate(Seen = ifelse(is.na(Rating), "No", "Yes")) %>%
+  left_join(., Streaming.Available, by="IMDBid") %>%
+  write.csv(.,"datasets/GreatFilmsEbert/Data.csv", row.names = FALSE)
+## AFI Top 100 from 1998
+left_join(IMDBafi1998, myratings %>% select(IMDBid, Rating, Rated.Date), by="IMDBid") %>%
+  mutate(Decade = paste0(10 * floor(as.numeric(ItemYear)/10),"s")) %>%
+  mutate(Seen = ifelse(is.na(Rating), "No", "Yes")) %>%
+  left_join(., Streaming.Available, by="IMDBid") %>%
+  write.csv(.,"datasets/AFITop100/1998/Data.csv", row.names = FALSE)
+## AFI Top 100 from 2007
+left_join(IMDBafi2007, myratings %>% select(IMDBid, Rating, Rated.Date), by="IMDBid") %>%
+  mutate(Decade = paste0(10 * floor(as.numeric(ItemYear)/10),"s")) %>%
+  mutate(Seen = ifelse(is.na(Rating), "No", "Yes")) %>%
+  left_join(., Streaming.Available, by="IMDBid") %>%
+  write.csv(.,"datasets/AFITop100/2007/Data.csv", row.names = FALSE)
+
+#mutate(Decade = floor(as.numeric(ItemYear)/10)*10)
