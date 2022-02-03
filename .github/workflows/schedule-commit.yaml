@@ -26,6 +26,7 @@ jobs:
             any::jsonlite
             any::lubridate
             any::httr
+            any::magrittr
 
       - name: Ratings
         env:

@@ -3,6 +3,7 @@ library(rvest)
 library(jsonlite)
 library(httr)
 library(lubridate)
+library(magrittr)
 
 RATINGS <- Sys.getenv("RATINGS")
 OMDBkey <- Sys.getenv("OMDB")
