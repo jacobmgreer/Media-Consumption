@@ -32,7 +32,7 @@ for (i in 1:ceiling(count/100)) {
 
 test <- anti_join(rated, ratingslist, by="IMDBid") %>%
   rowwise %>%
-  mutate(Response = list(fromJSON(content(GET(paste0('https://www.omdbapi.com/?i=',IMDBid,OMDBkey)), 'text'), simplifyVector = TRUE, flatten = TRUE))) %>%
+  mutate(Response = list(fromJSON(content(GET(paste0('https://www.omdbapi.com/?i=',IMDBid,'&apikey=',OMDBkey)), 'text'), simplifyVector = TRUE, flatten = TRUE))) %>%
   unnest_wider(Response) %>%
   filter(Response != "False") %>%
   unnest(cols = c(Ratings), names_sep = ".") %>%
