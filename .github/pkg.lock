@@ -2200,7 +2200,7 @@
     {
       "ref": "rlang",
       "package": "rlang",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "type": "standard",
       "direct": false,
       "binary": false,
@@ -2213,14 +2213,15 @@
         "RemoteRef": "rlang",
         "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
         "RemotePkgPlatform": "source",
-        "RemoteSha": "1.0.0"
+        "RemoteSha": "1.0.1"
       },
-      "sources": ["https://packagemanager.rstudio.com/all/__linux__/focal/latest/src/contrib/rlang_1.0.0.tar.gz"],
-      "target": "src/contrib/rlang_1.0.0.tar.gz",
+      "sources": ["https://packagemanager.rstudio.com/all/__linux__/focal/latest/src/contrib/rlang_1.0.1.tar.gz"],
+      "target": "src/contrib/rlang_1.0.1.tar.gz",
       "platform": "source",
       "rversion": "*",
       "directpkg": false,
       "license": "MIT + file LICENSE",
+      "sha256": "e59fd5c0f7530dbe329aa01621f6ef5a6474ff3ec96de0c0d24018fc2f21ad7f",
       "filesize": 717371,
       "dep_types": ["Depends", "Imports", "LinkingTo"],
       "params": [],
@@ -2569,6 +2570,37 @@
       "repotype": "cranlike"
     },
     {
+      "ref": "any::tidyverse",
+      "package": "tidyverse",
+      "version": "1.3.1",
+      "type": "any",
+      "direct": true,
+      "binary": false,
+      "dependencies": ["broom", "cli", "crayon", "dbplyr", "dplyr", "dtplyr", "forcats", "googledrive", "googlesheets4", "ggplot2", "haven", "hms", "httr", "jsonlite", "lubridate", "magrittr", "modelr", "pillar", "purrr", "readr", "readxl", "reprex", "rlang", "rstudioapi", "rvest", "stringr", "tibble", "tidyr", "xml2"],
+      "vignettes": false,
+      "needscompilation": false,
+      "metadata": {
+        "RemoteType": "any",
+        "RemotePkgRef": "any::tidyverse",
+        "RemoteRef": "any::tidyverse",
+        "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
+        "RemotePkgPlatform": "source",
+        "RemoteSha": "1.3.1"
+      },
+      "sources": ["https://packagemanager.rstudio.com/all/__linux__/focal/latest/src/contrib/tidyverse_1.3.1.tar.gz"],
+      "target": "src/contrib/tidyverse_1.3.1.tar.gz",
+      "platform": "source",
+      "rversion": "*",
+      "directpkg": true,
+      "license": "MIT + file LICENSE",
+      "sha256": "83cf95109d4606236274f5a8ec2693855bf75d3a1b3bc1ab4426dcc275ed6632",
+      "filesize": 702779,
+      "dep_types": ["Depends", "Imports", "LinkingTo"],
+      "params": [],
+      "install_args": "",
+      "repotype": "cranlike"
+    },
+    {
       "ref": "tinytex",
       "package": "tinytex",
       "version": "0.36",
@@ -2910,37 +2942,6 @@
       "repotype": "cranlike"
     },
     {
-      "ref": "any::tidyverse",
-      "package": "tidyverse",
-      "version": "1.3.1",
-      "type": "any",
-      "direct": true,
-      "binary": false,
-      "dependencies": ["broom", "cli", "crayon", "dbplyr", "dplyr", "dtplyr", "forcats", "googledrive", "googlesheets4", "ggplot2", "haven", "hms", "httr", "jsonlite", "lubridate", "magrittr", "modelr", "pillar", "purrr", "readr", "readxl", "reprex", "rlang", "rstudioapi", "rvest", "stringr", "tibble", "tidyr", "xml2"],
-      "vignettes": false,
-      "needscompilation": false,
-      "metadata": {
-        "RemoteType": "any",
-        "RemotePkgRef": "any::tidyverse",
-        "RemoteRef": "any::tidyverse",
-        "RemoteRepos": "https://cloud.r-project.org",
-        "RemotePkgPlatform": "source",
-        "RemoteSha": "1.3.1"
-      },
-      "sources": ["https://cloud.r-project.org/src/contrib/tidyverse_1.3.1.tar.gz", "https://cloud.r-project.org/src/contrib/Archive/tidyverse_1.3.1.tar.gz"],
-      "target": "src/contrib/tidyverse_1.3.1.tar.gz",
-      "platform": "source",
-      "rversion": "*",
-      "directpkg": true,
-      "license": "MIT + file LICENSE",
-      "sha256": "83cf95109d4606236274f5a8ec2693855bf75d3a1b3bc1ab4426dcc275ed6632",
-      "filesize": 702779,
-      "dep_types": ["Depends", "Imports", "LinkingTo"],
-      "params": [],
-      "install_args": "",
-      "repotype": "cran"
-    },
-    {
       "ref": "any::lubridate",
       "package": "lubridate",
       "version": "1.8.0",
@@ -2954,11 +2955,11 @@
         "RemoteType": "any",
         "RemotePkgRef": "any::lubridate",
         "RemoteRef": "any::lubridate",
-        "RemoteRepos": "https://cloud.r-project.org",
+        "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
         "RemotePkgPlatform": "source",
         "RemoteSha": "1.8.0"
       },
-      "sources": ["https://cloud.r-project.org/src/contrib/lubridate_1.8.0.tar.gz", "https://cloud.r-project.org/src/contrib/Archive/lubridate_1.8.0.tar.gz"],
+      "sources": ["https://packagemanager.rstudio.com/all/__linux__/focal/latest/src/contrib/lubridate_1.8.0.tar.gz"],
       "target": "src/contrib/lubridate_1.8.0.tar.gz",
       "platform": "source",
       "rversion": "*",
@@ -2969,7 +2970,7 @@
       "dep_types": ["Depends", "Imports", "LinkingTo"],
       "params": [],
       "install_args": "",
-      "repotype": "cran"
+      "repotype": "cranlike"
     },
     {
       "ref": "any::numform",
