@@ -86,10 +86,32 @@ left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.
     Menu = paste0("<h5>",Ceremony," Academy Awards</h5><h1>",Year,"</h1>")) %>%
   dplyr::group_by(AwardCeremony, Year) %>%
   dplyr::summarise(
-    Winner.Y = ifelse(any(AwardWinner == TRUE), n_distinct(FilmID[Seen == TRUE & AwardWinner == TRUE]), NA),
-    Winner.N = ifelse(any(AwardWinner == TRUE), n_distinct(FilmID[Seen == FALSE & AwardWinner == TRUE]), NA),
-    Nominee.Y = n_distinct(FilmID[Seen == TRUE & is.na(AwardWinner)]),
-    Nominee.N = n_distinct(FilmID[Seen == FALSE & is.na(AwardWinner)])) %>%
+    Winner.Y =
+      ifelse(
+        any(Seen == TRUE & AwardWinner == TRUE),
+        ifelse(
+          any(AwardWinner == TRUE),
+          n_distinct(FilmID[Seen == TRUE & AwardWinner == TRUE]),
+          NA),
+        NA),
+    Winner.N =
+      ifelse(
+        any(Seen == FALSE & AwardWinner == TRUE),
+        ifelse(
+          any(AwardWinner == TRUE),
+          n_distinct(FilmID[Seen == FALSE & AwardWinner == TRUE]),
+          NA),
+        NA),
+    Nominee.Y =
+      ifelse(
+        any(Seen == TRUE & is.na(AwardWinner)),
+        n_distinct(FilmID[Seen == TRUE & is.na(AwardWinner)]),
+        NA),
+    Nominee.N =
+      ifelse(
+        any(Seen == FALSE & is.na(AwardWinner)),
+        n_distinct(FilmID[Seen == FALSE & is.na(AwardWinner)]),
+        NA)) %>%
   arrange(Year) %>%
   select(-Year) %>%
   write.csv(.,"datasets/Oscars/OscarsSummary.csv", row.names = FALSE)
