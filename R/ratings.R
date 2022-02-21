@@ -86,8 +86,8 @@ left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.
     Menu = paste0("<h5>",Ceremony," Academy Awards</h5><h1>",Year,"</h1>")) %>%
   dplyr::group_by(AwardCeremony, Year) %>%
   dplyr::summarise(
-    Winner.Y = n_distinct(FilmID[Seen == TRUE & AwardWinner == TRUE]),
-    Winner.N = n_distinct(FilmID[Seen == FALSE & AwardWinner == TRUE]),
+    Winner.Y = ifelse(any(AwardWinner == TRUE), n_distinct(FilmID[Seen == TRUE & AwardWinner == TRUE]), NA),
+    Winner.N = ifelse(any(AwardWinner == TRUE), n_distinct(FilmID[Seen == FALSE & AwardWinner == TRUE]), NA),
     Nominee.Y = n_distinct(FilmID[Seen == TRUE & is.na(AwardWinner)]),
     Nominee.N = n_distinct(FilmID[Seen == FALSE & is.na(AwardWinner)])) %>%
   arrange(Year) %>%
