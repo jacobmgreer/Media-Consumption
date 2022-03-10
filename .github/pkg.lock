@@ -1,6 +1,6 @@
 {
   "lockfile_version": 1,
-  "os": "Ubuntu 20.04.4 LTS",
+  "os": "Ubuntu 20.04.3 LTS",
   "r_version": "R version 4.1.2 (2021-11-01)",
   "platform": "x86_64-pc-linux-gnu",
   "packages": [
@@ -2231,7 +2231,7 @@
     {
       "ref": "rlang",
       "package": "rlang",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "type": "standard",
       "direct": false,
       "binary": false,
@@ -2244,14 +2244,15 @@
         "RemoteRef": "rlang",
         "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
         "RemotePkgPlatform": "source",
-        "RemoteSha": "1.0.1"
+        "RemoteSha": "1.0.2"
       },
-      "sources": ["https://packagemanager.rstudio.com/all/__linux__/focal/latest/src/contrib/rlang_1.0.1.tar.gz"],
-      "target": "src/contrib/rlang_1.0.1.tar.gz",
+      "sources": ["https://packagemanager.rstudio.com/all/__linux__/focal/latest/src/contrib/rlang_1.0.2.tar.gz"],
+      "target": "src/contrib/rlang_1.0.2.tar.gz",
       "platform": "source",
       "rversion": "*",
       "directpkg": false,
       "license": "MIT + file LICENSE",
+      "sha256": "8de87c3e6fb0b3cce2dabc6908186f8e1528cc0c16b54de965fe02d405fdd7cc",
       "filesize": 724829,
       "dep_types": ["Depends", "Imports", "LinkingTo"],
       "params": [],
@@ -3016,11 +3017,11 @@
         "RemoteType": "any",
         "RemotePkgRef": "any::lubridate",
         "RemoteRef": "any::lubridate",
-        "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
+        "RemoteRepos": "https://cloud.r-project.org",
         "RemotePkgPlatform": "source",
         "RemoteSha": "1.8.0"
       },
-      "sources": ["https://packagemanager.rstudio.com/all/__linux__/focal/latest/src/contrib/lubridate_1.8.0.tar.gz"],
+      "sources": ["https://cloud.r-project.org/src/contrib/lubridate_1.8.0.tar.gz", "https://cloud.r-project.org/src/contrib/Archive/lubridate_1.8.0.tar.gz"],
       "target": "src/contrib/lubridate_1.8.0.tar.gz",
       "platform": "source",
       "rversion": "*",
@@ -3031,7 +3032,7 @@
       "dep_types": ["Depends", "Imports", "LinkingTo"],
       "params": [],
       "install_args": "",
-      "repotype": "cranlike"
+      "repotype": "cran"
     },
     {
       "ref": "any::numform",
