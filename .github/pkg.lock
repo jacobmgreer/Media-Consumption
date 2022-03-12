@@ -1,7 +1,7 @@
 {
   "lockfile_version": 1,
-  "os": "Ubuntu 20.04.3 LTS",
-  "r_version": "R version 4.1.2 (2021-11-01)",
+  "os": "Ubuntu 20.04.4 LTS",
+  "r_version": "R version 4.1.3 (2022-03-10)",
   "platform": "x86_64-pc-linux-gnu",
   "packages": [
     {
@@ -2262,7 +2262,7 @@
     {
       "ref": "rmarkdown",
       "package": "rmarkdown",
-      "version": "2.12",
+      "version": "2.13",
       "type": "standard",
       "direct": false,
       "binary": false,
@@ -2275,16 +2275,16 @@
         "RemoteRef": "rmarkdown",
         "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
         "RemotePkgPlatform": "source",
-        "RemoteSha": "2.12"
+        "RemoteSha": "2.13"
       },
-      "sources": ["https://packagemanager.rstudio.com/all/__linux__/focal/latest/src/contrib/rmarkdown_2.12.tar.gz"],
-      "target": "src/contrib/rmarkdown_2.12.tar.gz",
+      "sources": ["https://packagemanager.rstudio.com/all/__linux__/focal/latest/src/contrib/rmarkdown_2.13.tar.gz"],
+      "target": "src/contrib/rmarkdown_2.13.tar.gz",
       "platform": "source",
       "rversion": "*",
       "directpkg": false,
       "license": "GPL-3",
-      "sha256": "c3aba9eda862483c7631485002b6b94e0076e4fdd2384a095ee30243b958e690",
-      "filesize": 3235953,
+      "sha256": "7217bea1d202b34a9994b2e068a7da063d5e3b1e0cfada89125aecdedbb80744",
+      "filesize": 3237237,
       "dep_types": ["Depends", "Imports", "LinkingTo"],
       "params": [],
       "install_args": "",
@@ -2632,37 +2632,6 @@
       "repotype": "cranlike"
     },
     {
-      "ref": "any::tidyverse",
-      "package": "tidyverse",
-      "version": "1.3.1",
-      "type": "any",
-      "direct": true,
-      "binary": false,
-      "dependencies": ["broom", "cli", "crayon", "dbplyr", "dplyr", "dtplyr", "forcats", "googledrive", "googlesheets4", "ggplot2", "haven", "hms", "httr", "jsonlite", "lubridate", "magrittr", "modelr", "pillar", "purrr", "readr", "readxl", "reprex", "rlang", "rstudioapi", "rvest", "stringr", "tibble", "tidyr", "xml2"],
-      "vignettes": false,
-      "needscompilation": false,
-      "metadata": {
-        "RemoteType": "any",
-        "RemotePkgRef": "any::tidyverse",
-        "RemoteRef": "any::tidyverse",
-        "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
-        "RemotePkgPlatform": "source",
-        "RemoteSha": "1.3.1"
-      },
-      "sources": ["https://packagemanager.rstudio.com/all/__linux__/focal/latest/src/contrib/tidyverse_1.3.1.tar.gz"],
-      "target": "src/contrib/tidyverse_1.3.1.tar.gz",
-      "platform": "source",
-      "rversion": "*",
-      "directpkg": true,
-      "license": "MIT + file LICENSE",
-      "sha256": "83cf95109d4606236274f5a8ec2693855bf75d3a1b3bc1ab4426dcc275ed6632",
-      "filesize": 702779,
-      "dep_types": ["Depends", "Imports", "LinkingTo"],
-      "params": [],
-      "install_args": "",
-      "repotype": "cranlike"
-    },
-    {
       "ref": "tinytex",
       "package": "tinytex",
       "version": "0.37",
@@ -3004,6 +2973,37 @@
       "repotype": "cranlike"
     },
     {
+      "ref": "any::tidyverse",
+      "package": "tidyverse",
+      "version": "1.3.1",
+      "type": "any",
+      "direct": true,
+      "binary": false,
+      "dependencies": ["broom", "cli", "crayon", "dbplyr", "dplyr", "dtplyr", "forcats", "googledrive", "googlesheets4", "ggplot2", "haven", "hms", "httr", "jsonlite", "lubridate", "magrittr", "modelr", "pillar", "purrr", "readr", "readxl", "reprex", "rlang", "rstudioapi", "rvest", "stringr", "tibble", "tidyr", "xml2"],
+      "vignettes": false,
+      "needscompilation": false,
+      "metadata": {
+        "RemoteType": "any",
+        "RemotePkgRef": "any::tidyverse",
+        "RemoteRef": "any::tidyverse",
+        "RemoteRepos": "https://cloud.r-project.org",
+        "RemotePkgPlatform": "source",
+        "RemoteSha": "1.3.1"
+      },
+      "sources": ["https://cloud.r-project.org/src/contrib/tidyverse_1.3.1.tar.gz", "https://cloud.r-project.org/src/contrib/Archive/tidyverse_1.3.1.tar.gz"],
+      "target": "src/contrib/tidyverse_1.3.1.tar.gz",
+      "platform": "source",
+      "rversion": "*",
+      "directpkg": true,
+      "license": "MIT + file LICENSE",
+      "sha256": "83cf95109d4606236274f5a8ec2693855bf75d3a1b3bc1ab4426dcc275ed6632",
+      "filesize": 702779,
+      "dep_types": ["Depends", "Imports", "LinkingTo"],
+      "params": [],
+      "install_args": "",
+      "repotype": "cran"
+    },
+    {
       "ref": "any::lubridate",
       "package": "lubridate",
       "version": "1.8.0",
@@ -3066,7 +3066,7 @@
       "repotype": "cran"
     },
     {
-      "ref": "installed::/opt/R/4.1.2/lib/R/library/lattice",
+      "ref": "installed::/opt/R/4.1.3/lib/R/library/lattice",
       "package": "lattice",
       "version": "0.20-45",
       "type": "installed",
@@ -3077,15 +3077,15 @@
       "needscompilation": true,
       "metadata": {
         "RemoteType": "installed",
-        "RemotePkgRef": "installed::/opt/R/4.1.2/lib/R/library/lattice",
+        "RemotePkgRef": "installed::/opt/R/4.1.3/lib/R/library/lattice",
         "RemotePkgPlatform": "x86_64-pc-linux-gnu",
         "RemoteSha": "0.20-45"
       },
       "sources": [],
       "target": "src/contrib/lattice_0.20-45.tar.gz",
       "platform": "x86_64-pc-linux-gnu",
-      "rversion": "R 4.1.2",
-      "built": "R 4.1.2; x86_64-pc-linux-gnu; 2022-02-08 00:28:48 UTC; unix",
+      "rversion": "R 4.1.3",
+      "built": "R 4.1.3; x86_64-pc-linux-gnu; 2022-03-10 09:07:30 UTC; unix",
       "directpkg": false,
       "license": "GPL (>= 2)",
       "dep_types": ["Depends", "Imports", "LinkingTo"],
@@ -3094,9 +3094,9 @@
       "repotype": "cran"
     },
     {
-      "ref": "installed::/opt/R/4.1.2/lib/R/library/MASS",
+      "ref": "installed::/opt/R/4.1.3/lib/R/library/MASS",
       "package": "MASS",
-      "version": "7.3-54",
+      "version": "7.3-55",
       "type": "installed",
       "direct": false,
       "binary": true,
@@ -3105,15 +3105,15 @@
       "needscompilation": true,
       "metadata": {
         "RemoteType": "installed",
-        "RemotePkgRef": "installed::/opt/R/4.1.2/lib/R/library/MASS",
+        "RemotePkgRef": "installed::/opt/R/4.1.3/lib/R/library/MASS",
         "RemotePkgPlatform": "x86_64-pc-linux-gnu",
-        "RemoteSha": "7.3-54"
+        "RemoteSha": "7.3-55"
       },
       "sources": [],
-      "target": "src/contrib/MASS_7.3-54.tar.gz",
+      "target": "src/contrib/MASS_7.3-55.tar.gz",
       "platform": "x86_64-pc-linux-gnu",
-      "rversion": "R 4.1.2",
-      "built": "R 4.1.2; x86_64-pc-linux-gnu; 2022-02-08 00:28:39 UTC; unix",
+      "rversion": "R 4.1.3",
+      "built": "R 4.1.3; x86_64-pc-linux-gnu; 2022-03-10 09:07:20 UTC; unix",
       "directpkg": false,
       "license": "GPL-2 | GPL-3",
       "dep_types": ["Depends", "Imports", "LinkingTo"],
@@ -3122,9 +3122,9 @@
       "repotype": "cran"
     },
     {
-      "ref": "installed::/opt/R/4.1.2/lib/R/library/Matrix",
+      "ref": "installed::/opt/R/4.1.3/lib/R/library/Matrix",
       "package": "Matrix",
-      "version": "1.3-4",
+      "version": "1.4-0",
       "type": "installed",
       "direct": false,
       "binary": true,
@@ -3133,15 +3133,15 @@
       "needscompilation": true,
       "metadata": {
         "RemoteType": "installed",
-        "RemotePkgRef": "installed::/opt/R/4.1.2/lib/R/library/Matrix",
+        "RemotePkgRef": "installed::/opt/R/4.1.3/lib/R/library/Matrix",
         "RemotePkgPlatform": "x86_64-pc-linux-gnu",
-        "RemoteSha": "1.3-4"
+        "RemoteSha": "1.4-0"
       },
       "sources": [],
-      "target": "src/contrib/Matrix_1.3-4.tar.gz",
+      "target": "src/contrib/Matrix_1.4-0.tar.gz",
       "platform": "x86_64-pc-linux-gnu",
-      "rversion": "R 4.1.2",
-      "built": "R 4.1.2; x86_64-pc-linux-gnu; 2022-02-08 00:28:59 UTC; unix",
+      "rversion": "R 4.1.3",
+      "built": "R 4.1.3; x86_64-pc-linux-gnu; 2022-03-10 09:07:42 UTC; unix",
       "directpkg": false,
       "license": "GPL (>= 2) | file LICENCE",
       "dep_types": ["Depends", "Imports", "LinkingTo"],
@@ -3150,9 +3150,9 @@
       "repotype": "cran"
     },
     {
-      "ref": "installed::/opt/R/4.1.2/lib/R/library/mgcv",
+      "ref": "installed::/opt/R/4.1.3/lib/R/library/mgcv",
       "package": "mgcv",
-      "version": "1.8-38",
+      "version": "1.8-39",
       "type": "installed",
       "direct": false,
       "binary": true,
@@ -3161,15 +3161,15 @@
       "needscompilation": true,
       "metadata": {
         "RemoteType": "installed",
-        "RemotePkgRef": "installed::/opt/R/4.1.2/lib/R/library/mgcv",
+        "RemotePkgRef": "installed::/opt/R/4.1.3/lib/R/library/mgcv",
         "RemotePkgPlatform": "x86_64-pc-linux-gnu",
-        "RemoteSha": "1.8-38"
+        "RemoteSha": "1.8-39"
       },
       "sources": [],
-      "target": "src/contrib/mgcv_1.8-38.tar.gz",
+      "target": "src/contrib/mgcv_1.8-39.tar.gz",
       "platform": "x86_64-pc-linux-gnu",
-      "rversion": "R 4.1.2",
-      "built": "R 4.1.2; x86_64-pc-linux-gnu; 2022-02-08 00:32:16 UTC; unix",
+      "rversion": "R 4.1.3",
+      "built": "R 4.1.3; x86_64-pc-linux-gnu; 2022-03-10 09:11:10 UTC; unix",
       "directpkg": false,
       "license": "GPL (>= 2)",
       "dep_types": ["Depends", "Imports", "LinkingTo"],
@@ -3178,9 +3178,9 @@
       "repotype": "cran"
     },
     {
-      "ref": "installed::/opt/R/4.1.2/lib/R/library/nlme",
+      "ref": "installed::/opt/R/4.1.3/lib/R/library/nlme",
       "package": "nlme",
-      "version": "3.1-153",
+      "version": "3.1-155",
       "type": "installed",
       "direct": false,
       "binary": true,
@@ -3189,15 +3189,15 @@
       "needscompilation": true,
       "metadata": {
         "RemoteType": "installed",
-        "RemotePkgRef": "installed::/opt/R/4.1.2/lib/R/library/nlme",
+        "RemotePkgRef": "installed::/opt/R/4.1.3/lib/R/library/nlme",
         "RemotePkgPlatform": "x86_64-pc-linux-gnu",
-        "RemoteSha": "3.1-153"
+        "RemoteSha": "3.1-155"
       },
       "sources": [],
-      "target": "src/contrib/nlme_3.1-153.tar.gz",
+      "target": "src/contrib/nlme_3.1-155.tar.gz",
       "platform": "x86_64-pc-linux-gnu",
-      "rversion": "R 4.1.2",
-      "built": "R 4.1.2; x86_64-pc-linux-gnu; 2022-02-08 00:30:46 UTC; unix",
+      "rversion": "R 4.1.3",
+      "built": "R 4.1.3; x86_64-pc-linux-gnu; 2022-03-10 09:09:31 UTC; unix",
       "directpkg": false,
       "license": "GPL (>= 2) | file LICENCE",
       "dep_types": ["Depends", "Imports", "LinkingTo"],
