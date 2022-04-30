@@ -60,7 +60,11 @@ Streaming.Available <-
           mutate(Type = "Documentary"),
         read_csv("raw-lists/Prime-Films.csv") %>%
           mutate(Service = "Prime") %>%
-          mutate(Type = "Feature Film"))
+          mutate(Type = "Feature Film")) %>%
+  rbind(.,
+        read_csv("raw-lists/Prime-OscarShorts.csv") %>%
+          mutate(Service = "Prime") %>%
+          mutate(Type = "Short Films"))
 
 ## Oscar Ceremony Data for Summary and Graph
 OscarCeremonies.corrected <- read_csv("raw-lists/OscarCeremonies.csv")
