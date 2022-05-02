@@ -39,7 +39,7 @@ test <- anti_join(rated, ratingslist, by="IMDBid") %>%
   filter(Response != "False") %>%
   unnest(cols = c(Ratings), names_sep = ".") %>%
   spread(Ratings.Source, Ratings.Value) %>%
-  select(-c(DVD,BoxOffice,Production,Website,Response,totalSeasons)) %>%
+  #select(-c(DVD,BoxOffice,Production,Website,Response,totalSeasons)) %>%
   mutate(
     Rated.Date = as.Date(str_remove(Rated.Date, "Rated on "), format = "%d %b %Y"),
     Rated.Year = as.double(paste0(year(Rated.Date),".",yday(Rated.Date))),
