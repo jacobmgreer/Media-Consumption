@@ -9,7 +9,7 @@ library(numform)
 RATINGS <- Sys.getenv("RATINGS")
 OMDBkey <- Sys.getenv("OMDB")
 
-ratingslist <- read_csv("datasets/ratings.csv")
+ratingslist <- read_csv("datasets/ratings.csv") %>% mutate(totalSeasons = as.character(totalSeasons))
 
 ## MOVIE RATINGS
 count <-
@@ -41,7 +41,6 @@ test <- anti_join(rated, ratingslist, by="IMDBid") %>%
   spread(Ratings.Source, Ratings.Value) %>%
   #select(-c(DVD,BoxOffice,Production,Website,Response,totalSeasons)) %>%
   mutate(
-    totalSeasons = as.character(totalSeasons),
     Rated.Date = as.Date(str_remove(Rated.Date, "Rated on "), format = "%d %b %Y"),
     Rated.Year = as.double(paste0(year(Rated.Date),".",yday(Rated.Date))),
     Released = year(as.Date(Released, format = "%d %b %Y")),
