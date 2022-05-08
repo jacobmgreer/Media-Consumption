@@ -1,6 +1,4 @@
-name: Testing Engine!
-
-
+name: Media Consumption
 on: [workflow_dispatch]
 
 # on:
@@ -34,11 +32,6 @@ jobs:
             RATINGS: ${{ secrets.RATINGS }}
             OMDB: ${{ secrets.OMDB }}
         run: Rscript R/ratings.R
-
-      - name: Vinyl Collection
-        env:
-            RECORDS: ${{ secrets.RECORDS }}
-        run: Rscript R/vinyl.R
 
       - name: Commit files
         run: |
