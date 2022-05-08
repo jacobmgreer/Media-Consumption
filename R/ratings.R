@@ -14,6 +14,22 @@ OMDBkey <- Sys.getenv("OMDB")
 
 ratingslist <- read_csv("datasets/ratings.csv") %>% mutate(totalSeasons = as.character(totalSeasons))
 
+## WATCHLIST
+read.csv("https://www.imdb.com/list/ls003235325/export") %>%
+write.csv(.,"datasets/watchlist.csv", row.names = FALSE)
+
+## Seen at AFI
+read.csv("https://www.imdb.com/list/ls507245240/export") %>%
+write.csv(.,"datasets/AFI-Silver.csv", row.names = FALSE)
+
+## Seen at a Theater
+read.csv("https://www.imdb.com/list/ls507032905/export") %>%
+write.csv(.,"datasets/AFI-Silver.csv", row.names = FALSE)
+
+## Holidaze
+read.csv("https://www.imdb.com/list/ls576218435/export") %>%
+write.csv(.,"datasets/Holidaze.csv", row.names = FALSE)
+
 ## MOVIE RATINGS
 count <-
   read_html(RATINGS) %>%
