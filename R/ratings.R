@@ -189,6 +189,7 @@ OscarsCorrected %>%
         n_distinct(FilmID[Seen == FALSE & is.na(AwardWinner)]),
         0),
     Nominee.Per = round(Nominee.Y/(Nominee.Y+Nominee.N), digits=2),
+    On.Prime = n_distinct(FilmID[Prime == "Prime"]),
     Prime.Y = n_distinct(FilmID[Seen == TRUE & Prime == "Prime"]),
     Prime.N = n_distinct(FilmID[Seen == FALSE & Prime == "Prime"]),
     Prime.Per = round(Prime.Y/(Prime.Y+Prime.N), digits=2)) %>%
