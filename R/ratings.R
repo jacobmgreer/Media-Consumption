@@ -123,9 +123,23 @@ left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.
 
 ## Oscar Nominee Breakouts
 ### Director
-OscarsCorrected %>%
-filter(AwardCategory %in% c("Best Director, Comedy Picture", "Best Director, Dramatic Picture", "Best Director")) %>%
+OscarsCorrected %>% filter(AwardCategory %in% c("Best Director, Comedy Picture", "Best Director, Dramatic Picture", "Best Achievement in Directing", "Best Director")) %>%
 write.csv(.,"datasets/Oscars/awards/Director.csv", row.names = FALSE)
+### Costume
+OscarsCorrected %>% filter(AwardCategory %in% c("Best Achievement in Costume Design", "Best Costume Design, Black-and-White or Color", "Best Costume Design, Color", "Best Costume Design, Black-and-White", "Best Costume Design")) %>%
+  write.csv(.,"datasets/Oscars/awards/Costume.csv", row.names = FALSE)
+### Documentary
+OscarsCorrected %>% filter(AwardCategory %in% c("Best Documentary, Features", "Best Documentary", "Best Documentary, Feature", "Best Documentary Feature")) %>%
+  write.csv(.,"datasets/Oscars/awards/Documentary.csv", row.names = FALSE)
+### Picture
+OscarsCorrected %>% filter(AwardCategory %in% c("Best Motion Picture of the Year", "Best Picture, Unique and Artistic Production", "Best Picture, Production", "Best Picture")) %>%
+  write.csv(.,"datasets/Oscars/awards/Picture.csv", row.names = FALSE)
+### Animated Feature
+OscarsCorrected %>% filter(AwardCategory %in% c("Best Animated Feature Film of the Year", "Best Animated Feature Film", "Best Animated Feature")) %>%
+  write.csv(.,"datasets/Oscars/awards/Animated.csv", row.names = FALSE)
+### Cinematography
+OscarsCorrected %>% filter(AwardCategory %in% c("Best Cinematography, Black-and-White", "Best Cinematography, Color", "Best Achievement in Cinematography", "Best Cinematography")) %>%
+  write.csv(.,"datasets/Oscars/awards/Cinematography.csv", row.names = FALSE)
 
 ## NYT-1000 Data for Summary and Graph
 combinedNYT1000 <-

@@ -37,18 +37,6 @@ AwardData <-
                                "Best Effects, Sound Effects Editing",
                                "Best Sound Mixing"), "Best Sound", AwardCategory),
     AwardCategory = ifelse(AwardCategory %in%
-                             c("Best Director, Comedy Picture",
-                               "Best Director, Dramatic Picture"), "Best Director", AwardCategory),
-    AwardCategory = ifelse(AwardCategory %in%
-                             c("Best Documentary, Features",
-                               "Best Documentary",
-                               "Best Documentary, Feature"), "Best Documentary Feature", AwardCategory),
-    AwardCategory = ifelse(AwardCategory %in%
-                             c("Best Achievement in Costume Design",
-                               "Best Costume Design, Black-and-White or Color",
-                               "Best Costume Design, Color",
-                               "Best Costume Design, Black-and-White"), "Best Costume Design", AwardCategory),
-    AwardCategory = ifelse(AwardCategory %in%
                              c("Best Art Direction-Interior Decoration, Black-and-White",
                                "Best Art Direction-Interior Decoration, Color",
                                "Best Art Direction-Set Decoration",
@@ -65,19 +53,7 @@ AwardData <-
                                "Best Achievement in Makeup and Hairstyling",
                                "Best Makeup"), "Best Makeup and Hairstyling", AwardCategory),
     AwardCategory = ifelse(AwardCategory %in%
-                             c("Best Cinematography, Black-and-White",
-                               "Best Cinematography, Color",
-                               "Best Achievement in Cinematography"), "Best Cinematography", AwardCategory),
-    AwardCategory = ifelse(AwardCategory %in%
-                             c("Best Motion Picture of the Year",
-                               "Best Picture, Unique and Artistic Production",
-                               "Best Picture, Production"), "Best Picture", AwardCategory),
-    AwardCategory = ifelse(AwardCategory %in%
-                             c("Best Animated Feature Film of the Year",
-                               "Best Animated Feature Film"), "Best Animated Feature", AwardCategory),
-    AwardCategory = ifelse(AwardCategory %in%
-                             c("Best Achievement in Directing",
-                               "Best Assistant Director"), "Best Director", AwardCategory),
+                             c("Best Assistant Director"), "Best Assistant Director", AwardCategory),
     AwardCategory = ifelse(AwardCategory %in% c("Best Achievement in Film Editing"), "Best Film Editing", AwardCategory),
     AwardCategory = ifelse(AwardCategory %in% c("Best Performance by an Actor in a Leading Role"), "Best Actor in a Leading Role", AwardCategory),
     AwardCategory = ifelse(AwardCategory %in% c("Best Performance by an Actor in a Supporting Role"), "Best Actor in a Supporting Role", AwardCategory),
