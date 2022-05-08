@@ -124,7 +124,7 @@ left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.
 ## Oscar Nominee Breakouts
 ### Director
 OscarsCorrected %>%
-select(AwardCategory %in% c("Best Director, Comedy Picture", "Best Director, Dramatic Picture", "Best Director")) %>%
+filter(AwardCategory %in% c("Best Director, Comedy Picture", "Best Director, Dramatic Picture", "Best Director")) %>%
 write.csv(.,"datasets/Oscars/awards/Director.csv", row.names = FALSE)
 
 ## NYT-1000 Data for Summary and Graph
