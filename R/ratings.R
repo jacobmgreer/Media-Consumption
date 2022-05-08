@@ -124,14 +124,38 @@ left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.
 ## Award Summary
 OscarsCorrected %>%
   dplyr::group_by(AwardType) %>%
-  dplyr::summarize(
-    Total.Y = n_distinct(FilmID[Seen == "Yes"]),
-    Total.N = n_distinct(FilmID[Seen == "No"]),
-    Total.Per = round(Total.Y/(Total.Y+Total.N), digits=2),
-    Prime.Y = n_distinct(FilmID[Seen == "Yes" & Service == "Prime"]),
-    Prime.N = n_distinct(FilmID[Seen == "No" & Service == "Prime"]),
-    Prime.Per = round(Prime.Y/(Prime.Y+Prime.N), digits=2)) %>%
+  dplyr::summarise(
+    Winner.Y =
+      ifelse(
+        any(Seen == TRUE & AwardWinner == TRUE),
+        ifelse(
+          any(AwardWinner == TRUE),
+          n_distinct(FilmID[Seen == TRUE & AwardWinner == TRUE]),
+          NA),
+        NA),
+    Winner.N =
+      ifelse(
+        any(Seen == FALSE & AwardWinner == TRUE),
+        ifelse(
+          any(AwardWinner == TRUE),
+          n_distinct(FilmID[Seen == FALSE & AwardWinner == TRUE]),
+          NA),
+        NA),
+    Nominee.Y =
+      ifelse(
+        any(Seen == TRUE & is.na(AwardWinner)),
+        n_distinct(FilmID[Seen == TRUE & is.na(AwardWinner)]),
+        NA),
+    Nominee.N =
+      ifelse(
+        any(Seen == FALSE & is.na(AwardWinner)),
+        n_distinct(FilmID[Seen == FALSE & is.na(AwardWinner)]),
+        NA)) %>%
   write.csv(.,"datasets/Oscars/OscarsAwardSummary.csv", row.names = FALSE)
+
+# Prime.Y = n_distinct(FilmID[Seen == "Yes" & Service == "Prime"]),
+# Prime.N = n_distinct(FilmID[Seen == "No" & Service == "Prime"]),
+# Prime.Per = round(Prime.Y/(Prime.Y+Prime.N), digits=2)
 
 ## NYT-1000 Data for Summary and Graph
 combinedNYT1000 <-
