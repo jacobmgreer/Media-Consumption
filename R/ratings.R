@@ -128,7 +128,7 @@ left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.
 OscarsCorrected %>%
   filter(FilmID != "") %>%
   mutate(AwardWinner = ifelse(AwardWinner == "Winner",TRUE,FALSE)) %>%
-  select(AwardCeremony, AwardWinner, FilmID, Rating) %>%
+  select(AwardCeremony, AwardType, AwardWinner, FilmID, Rating) %>%
   distinct %>%
   dplyr::group_by(FilmID) %>%
   dplyr::mutate(
