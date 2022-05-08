@@ -151,31 +151,32 @@ OscarsCorrected %>%
         ifelse(
           any(AwardWinner == TRUE),
           n_distinct(FilmID[Seen == TRUE & AwardWinner == TRUE]),
-          NA),
-        NA),
+          0),
+        0),
     Winner.N =
       ifelse(
         any(Seen == FALSE & AwardWinner == TRUE),
         ifelse(
           any(AwardWinner == TRUE),
           n_distinct(FilmID[Seen == FALSE & AwardWinner == TRUE]),
-          NA),
-        NA),
+          0),
+        0),
+    Winner.Per = round(Winner.Y/(Winner.Y+Winner.N), digits=2),
     Nominee.Y =
       ifelse(
         any(Seen == TRUE & is.na(AwardWinner)),
         n_distinct(FilmID[Seen == TRUE & is.na(AwardWinner)]),
-        NA),
+        0),
     Nominee.N =
       ifelse(
         any(Seen == FALSE & is.na(AwardWinner)),
         n_distinct(FilmID[Seen == FALSE & is.na(AwardWinner)]),
-        NA)) %>%
+        0),
+    Nominee.Per = round(Nominee.Y/(Nominee.Y+Nominee.N), digits=2),
+    Prime.Y = n_distinct(FilmID[Seen == "Yes" & Service == "Prime"]),
+    Prime.N = n_distinct(FilmID[Seen == "No" & Service == "Prime"]),
+    Prime.Per = round(Prime.Y/(Prime.Y+Prime.N), digits=2)) %>%
   write.csv(.,"datasets/Oscars/OscarsAwardSummary.csv", row.names = FALSE)
-
-# Prime.Y = n_distinct(FilmID[Seen == "Yes" & Service == "Prime"]),
-# Prime.N = n_distinct(FilmID[Seen == "No" & Service == "Prime"]),
-# Prime.Per = round(Prime.Y/(Prime.Y+Prime.N), digits=2)
 
 ## NYT-1000 Data for Summary and Graph
 combinedNYT1000 <-
