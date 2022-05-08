@@ -189,8 +189,8 @@ OscarsCorrected %>%
         n_distinct(FilmID[Seen == FALSE & is.na(AwardWinner)]),
         0),
     Nominee.Per = round(Nominee.Y/(Nominee.Y+Nominee.N), digits=2),
-    Prime.Y = n_distinct(FilmID[Seen == "Yes" & Prime == "Prime"]),
-    Prime.N = n_distinct(FilmID[Seen == "No" & Prime == "Prime"]),
+    Prime.Y = n_distinct(FilmID[Seen == TRUE & Prime == "Prime"]),
+    Prime.N = n_distinct(FilmID[Seen == FALSE & Prime == "Prime"]),
     Prime.Per = round(Prime.Y/(Prime.Y+Prime.N), digits=2)) %>%
   write.csv(.,"datasets/Oscars/OscarsAwardSummary.csv", row.names = FALSE)
 
