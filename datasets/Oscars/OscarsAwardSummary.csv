@@ -1,0 +1,26 @@
+"AwardType","Winner.Y","Winner.N","Nominee.Y","Nominee.N"
+"Actor, Lead",45,53,47,142
+"Actor, Supporting",48,40,48,137
+"Actress, Lead",42,57,50,207
+"Actress, Supporting",42,46,44,142
+"Animated",20,3,22,45
+"Art Direction",58,64,58,237
+"Cinematography",61,62,48,247
+"Costume",45,48,41,205
+"Direction, Dance",NA,5,2,15
+"Director",57,40,37,91
+"Director, Assistant",NA,5,NA,6
+"Documentary",8,78,13,280
+"Film Editing",53,36,47,85
+"International",11,57,7,255
+"Makeup",34,8,24,38
+"Picture",62,35,56,108
+"Score",72,66,87,383
+"Short, Animated",12,80,20,273
+"Short, Documentary",5,76,11,260
+"Short, Live Action",5,115,11,359
+"Song",49,41,72,235
+"Sound",68,48,76,196
+"Visual Effects",47,30,71,84
+"Writing",104,96,126,386
+"Writing, Title",NA,NA,NA,1
