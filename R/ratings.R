@@ -121,37 +121,50 @@ left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.
   select(-Year) %>%
   write.csv(.,"datasets/Oscars/OscarsSummary.csv", row.names = FALSE)
 
-# ## Award Summary
-# OscarsCorrected %>%
-#   dplyr::group_by(AwardType) %>%
-#   dplyr::summarise(
-#     Winner.Y =
-#       ifelse(
-#         any(Seen == TRUE & AwardWinner == TRUE),
-#         ifelse(
-#           any(AwardWinner == TRUE),
-#           n_distinct(FilmID[Seen == TRUE & AwardWinner == TRUE]),
-#           NA),
-#         NA),
-#     Winner.N =
-#       ifelse(
-#         any(Seen == FALSE & AwardWinner == TRUE),
-#         ifelse(
-#           any(AwardWinner == TRUE),
-#           n_distinct(FilmID[Seen == FALSE & AwardWinner == TRUE]),
-#           NA),
-#         NA),
-#     Nominee.Y =
-#       ifelse(
-#         any(Seen == TRUE & is.na(AwardWinner)),
-#         n_distinct(FilmID[Seen == TRUE & is.na(AwardWinner)]),
-#         NA),
-#     Nominee.N =
-#       ifelse(
-#         any(Seen == FALSE & is.na(AwardWinner)),
-#         n_distinct(FilmID[Seen == FALSE & is.na(AwardWinner)]),
-#         NA)) %>%
-#   write.csv(.,"datasets/Oscars/OscarsAwardSummary.csv", row.names = FALSE)
+## Award Summary
+OscarsCorrected %>%
+  filter(FilmID != "") %>%
+  mutate(AwardWinner = ifelse(AwardWinner == "Winner",TRUE,FALSE)) %>%
+  select(AwardCeremony, AwardWinner, FilmID, Rating) %>%
+  distinct %>%
+  dplyr::group_by(FilmID) %>%
+  dplyr::mutate(
+    filmwon=ifelse(any(AwardWinner),TRUE,FALSE),
+    filmwon=ifelse(all(is.na(filmwon)),FALSE,filmwon)
+  ) %>%
+  dplyr::mutate(keep_row=ifelse(filmwon,AwardWinner,TRUE)) %>%
+  dplyr::filter(!(filmwon == TRUE & is.na(keep_row))) %>%
+  ungroup %>%
+  mutate(Seen = ifelse(is.na(Rating), FALSE, TRUE)) %>%
+  dplyr::group_by(AwardType) %>%
+  dplyr::summarise(
+    Winner.Y =
+      ifelse(
+        any(Seen == TRUE & AwardWinner == TRUE),
+        ifelse(
+          any(AwardWinner == TRUE),
+          n_distinct(FilmID[Seen == TRUE & AwardWinner == TRUE]),
+          NA),
+        NA),
+    Winner.N =
+      ifelse(
+        any(Seen == FALSE & AwardWinner == TRUE),
+        ifelse(
+          any(AwardWinner == TRUE),
+          n_distinct(FilmID[Seen == FALSE & AwardWinner == TRUE]),
+          NA),
+        NA),
+    Nominee.Y =
+      ifelse(
+        any(Seen == TRUE & is.na(AwardWinner)),
+        n_distinct(FilmID[Seen == TRUE & is.na(AwardWinner)]),
+        NA),
+    Nominee.N =
+      ifelse(
+        any(Seen == FALSE & is.na(AwardWinner)),
+        n_distinct(FilmID[Seen == FALSE & is.na(AwardWinner)]),
+        NA)) %>%
+  write.csv(.,"datasets/Oscars/OscarsAwardSummary.csv", row.names = FALSE)
 
 # Prime.Y = n_distinct(FilmID[Seen == "Yes" & Service == "Prime"]),
 # Prime.N = n_distinct(FilmID[Seen == "No" & Service == "Prime"]),
