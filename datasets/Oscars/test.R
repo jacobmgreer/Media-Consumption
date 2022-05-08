@@ -152,20 +152,20 @@ AwardData <-
                                "Best Writing, Story and Screenplay Based on Factual Material or Material Not Previously Published or Produced",
                                "Best Writing, Story and Screenplay Based on Material Not Previously Published or Produced"), "Best Writing", AwardCategory))
 
-AwardSummary <-
-  AwardData %>%
-  dplyr::group_by(AwardCategory) %>%
-  dplyr::summarize(
-    Total.Y = n_distinct(FilmID[Seen == "Yes"]),
-    Total.N = n_distinct(FilmID[Seen == "No"]),
-    Total.Per = round(Total.Y/(Total.Y+Total.N), digits=2),
-    Prime.Y = n_distinct(FilmID[Seen == "Yes" & Service == "Prime"]),
-    Prime.N = n_distinct(FilmID[Seen == "No" & Service == "Prime"]),
-    Prime.Per = round(Prime.Y/(Prime.Y+Prime.N), digits=2))
+# AwardSummary <-
+#   AwardData %>%
+#   dplyr::group_by(AwardCategory) %>%
+#   dplyr::summarize(
+#     Total.Y = n_distinct(FilmID[Seen == "Yes"]),
+#     Total.N = n_distinct(FilmID[Seen == "No"]),
+#     Total.Per = round(Total.Y/(Total.Y+Total.N), digits=2),
+#     Prime.Y = n_distinct(FilmID[Seen == "Yes" & Service == "Prime"]),
+#     Prime.N = n_distinct(FilmID[Seen == "No" & Service == "Prime"]),
+#     Prime.Per = round(Prime.Y/(Prime.Y+Prime.N), digits=2))
 
-ShortsOnPrime <-
-  AwardData %>%
-  filter(Service == "Prime") %>%
-  filter(Type.y == "Shorts") %>%
-  select(AwardWinner, FilmID, FilmName, Year, Runtime, Poster, imdbRating, imdbVotes, Rating, Rated.Date) %>%
-  distinct(FilmID, .keep_all = TRUE)
+# ShortsOnPrime <-
+#   AwardData %>%
+#   filter(Service == "Prime") %>%
+#   filter(Type.y == "Shorts") %>%
+#   select(AwardWinner, FilmID, FilmName, Year, Runtime, Poster, imdbRating, imdbVotes, Rating, Rated.Date) %>%
+#   distinct(FilmID, .keep_all = TRUE)

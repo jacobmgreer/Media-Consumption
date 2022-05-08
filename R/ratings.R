@@ -68,9 +68,9 @@ Streaming.Available <-
 
 ## Oscar Ceremony Data for Summary and Graph
 OscarCeremonies.corrected <- read_csv("raw-lists/OscarCeremonies.csv")
-left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.Date), by=c("FilmID" = "IMDBid")) %>%
-  left_join(., Streaming.Available %>% rename(Amazon.Type = Type, Prime = Service), by=c("FilmID" = "IMDBid")) %>%
-  write.csv(.,"datasets/Oscars/OscarsTracking.csv", row.names = FALSE)
+OscarsCorrected <- left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.Date), by=c("FilmID" = "IMDBid")) %>%
+  left_join(., Streaming.Available %>% rename(Amazon.Type = Type, Prime = Service), by=c("FilmID" = "IMDBid"))
+write.csv(OscarsCorrected,"datasets/Oscars/OscarsTracking.csv", row.names = FALSE)
 left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.Date), by=c("FilmID" = "IMDBid")) %>%
   filter(FilmID != "") %>%
   mutate(AwardWinner = ifelse(AwardWinner == "Winner",TRUE,FALSE)) %>%
@@ -120,6 +120,12 @@ left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.
   arrange(Year) %>%
   select(-Year) %>%
   write.csv(.,"datasets/Oscars/OscarsSummary.csv", row.names = FALSE)
+
+## Oscar Nominee Breakouts
+### Director
+OscarsCorrected %>%
+select(AwardCategory %in% c("Best Director, Comedy Picture", "Best Director, Dramatic Picture", "Best Director")) %>%
+write.csv(.,"datasets/Oscars/awards/Director.csv", row.names = FALSE)
 
 ## NYT-1000 Data for Summary and Graph
 combinedNYT1000 <-
