@@ -9,7 +9,7 @@ library(numform)
 RATINGS <- Sys.getenv("RATINGS")
 OMDBkey <- Sys.getenv("OMDB")
 
-ratingslist <- read_csv("datasets/ratings.csv") %>% mutate(totalSeasons = as.character(totalSeasons)) %>% select(-c('Response','<NA>')
+ratingslist <- read_csv("datasets/ratings.csv") %>% mutate(totalSeasons = as.character(totalSeasons))
 
 ## MOVIE RATINGS
 count <-
