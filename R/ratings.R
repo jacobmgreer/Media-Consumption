@@ -24,11 +24,11 @@ write.csv(.,"datasets/AFI-Silver.csv", row.names = FALSE)
 
 ## Seen at a Theater
 read.csv("https://www.imdb.com/list/ls507032905/export") %>%
-write.csv(.,"datasets/AFI-Silver.csv", row.names = FALSE)
+write.csv(.,"datasets/theater.csv", row.names = FALSE)
 
 ## Holidaze
 read.csv("https://www.imdb.com/list/ls576218435/export") %>%
-write.csv(.,"datasets/Holidaze.csv", row.names = FALSE)
+write.csv(.,"datasets/holidaze.csv", row.names = FALSE)
 
 ## MOVIE RATINGS
 count <-
