@@ -6,6 +6,9 @@ library(lubridate)
 library(magrittr)
 library(numform)
 
+options(readr.show_col_types = FALSE)
+options(warn=-1)
+
 RATINGS <- Sys.getenv("RATINGS")
 OMDBkey <- Sys.getenv("OMDB")
 
@@ -135,7 +138,11 @@ OscarsCorrected %>%
   dplyr::mutate(keep_row=ifelse(filmwon,AwardWinner,TRUE)) %>%
   dplyr::filter(!(filmwon == TRUE & is.na(keep_row))) %>%
   ungroup %>%
-  mutate(Seen = ifelse(is.na(Rating), FALSE, TRUE)) %>%
+  mutate(
+    Seen = ifelse(is.na(Rating), FALSE, TRUE),
+    Year = sub('.*-', '', AwardCeremony),
+    Ceremony = ifelse(f_ordinal(sub("\\-.*", "", str_remove(AwardCeremony, "^0+"))) == 13, "13th", f_ordinal(sub("\\-.*", "", str_remove(AwardCeremony, "^0+")))),
+    Menu = paste0("<h5>",AwardType,"</h5>")) %>%
   dplyr::group_by(AwardType) %>%
   dplyr::summarise(
     Winner.Y =
