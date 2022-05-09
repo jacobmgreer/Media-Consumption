@@ -78,7 +78,8 @@ Streaming.Available <-
         read_csv("raw-lists/Prime-Free-Times.csv")) %>%
         mutate(Service = "Prime") %>%
   rbind(., read_csv("raw-lists/Prime-Rentals-Oscar.csv") %>% mutate(Service = "Prime Rentals")) %>%
-  rbind(., read_csv("raw-lists/Prime-Rentals-Times.csv") %>% mutate(Service = "Prime Rentals"))
+  rbind(., read_csv("raw-lists/Prime-Rentals-Times.csv") %>% mutate(Service = "Prime Rentals")) %>%
+  distinct
 
 ## Oscar Ceremony Data for Summary and Graph
 OscarCeremonies.corrected <- read_csv("raw-lists/OscarCeremonies.csv")
@@ -156,6 +157,9 @@ OscarsCorrected %>%
     Menu = paste0("<h5>",AwardType,"</h5>")) %>%
   dplyr::group_by(AwardType) %>%
   dplyr::summarise(
+    Films = n_distinct(FilmID),
+    Films.Y = n_distinct(FilmID[Seen == TRUE]),
+    Films.N = n_distinct(FilmID[Seen == FALSE]),
     Winner.Y =
       ifelse(
         any(Seen == TRUE & AwardWinner == TRUE),
