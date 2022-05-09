@@ -83,7 +83,7 @@ Streaming.Available <-
 ## Oscar Ceremony Data for Summary and Graph
 OscarCeremonies.corrected <- read_csv("raw-lists/OscarCeremonies.csv")
 OscarsCorrected <- left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.Date), by=c("FilmID" = "IMDBid")) %>%
-  left_join(., Streaming.Available %>% rename(Amazon.Type = Type, Prime = Service), by=c("FilmID" = "IMDBid"))
+  left_join(., Streaming.Available, by=c("FilmID" = "IMDBid"))
 write.csv(OscarsCorrected,"datasets/Oscars/OscarsTracking.csv", row.names = FALSE)
 left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.Date), by=c("FilmID" = "IMDBid")) %>%
   filter(FilmID != "") %>%
@@ -139,7 +139,7 @@ left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.
 OscarsCorrected %>%
   filter(FilmID != "") %>%
   mutate(AwardWinner = ifelse(AwardWinner == "Winner",TRUE,FALSE)) %>%
-  select(AwardCeremony, AwardType, AwardWinner, FilmID, Rating, Prime) %>%
+  select(AwardCeremony, AwardType, AwardWinner, FilmID, Rating, Service) %>%
   distinct %>%
   dplyr::group_by(FilmID) %>%
   dplyr::mutate(
@@ -184,10 +184,14 @@ OscarsCorrected %>%
         n_distinct(FilmID[Seen == FALSE & is.na(AwardWinner)]),
         0),
     Nominee.Per = round(Nominee.Y/(Nominee.Y+Nominee.N), digits=2),
-    On.Prime = n_distinct(FilmID[Prime == "Prime"]),
-    Prime.Y = n_distinct(FilmID[Seen == TRUE & Prime == "Prime"]),
-    Prime.N = n_distinct(FilmID[Seen == FALSE & Prime == "Prime"]),
-    Prime.Per = round(Prime.Y/(Prime.Y+Prime.N), digits=2)) %>%
+    On.Prime.Free = n_distinct(FilmID[Service == "Prime"]),
+    Prime.Free.Y = n_distinct(FilmID[Seen == TRUE & Service == "Prime"]),
+    Prime.Free.N = n_distinct(FilmID[Seen == FALSE & Service == "Prime"]),
+    Prime.Free.Per = round(Prime.Free.Y/On.Prime.Free, digits=2),
+    On.Prime.Rental = n_distinct(FilmID[Service == "Prime Rentals"]),
+    Prime.Rental.Y = n_distinct(FilmID[Seen == TRUE & Service == "Prime Rentals"]),
+    Prime.Rental.N = n_distinct(FilmID[Seen == FALSE & Service == "Prime Rentals"]),
+    Prime.Rental.Per = round(Prime.Rental.Y/On.Prime.Rental, digits=2)) %>%
   write.csv(.,"datasets/Oscars/OscarsAwardSummary.csv", row.names = FALSE)
 
 ## NYT-1000 Data for Summary and Graph
