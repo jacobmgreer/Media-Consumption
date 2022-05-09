@@ -74,16 +74,11 @@ myratings <- bind_rows(ratingslist, test) %>%
 
 ## Prime Availability
 Streaming.Available <-
-  rbind(read_csv("raw-lists/Prime-Docs.csv") %>%
-          mutate(Service = "Prime") %>%
-          mutate(Type = "Documentary"),
-        read_csv("raw-lists/Prime-Films.csv") %>%
-          mutate(Service = "Prime") %>%
-          mutate(Type = "Feature Film")) %>%
-  rbind(.,
-        read_csv("raw-lists/Prime-OscarShorts.csv") %>%
-          mutate(Service = "Prime") %>%
-          mutate(Type = "Short Films"))
+  rbind(read_csv("raw-lists/Prime-Free-Oscar.csv"),
+        read_csv("raw-lists/Prime-Free-Times.csv")) %>%
+        mutate(Service = "Prime") %>%
+  rbind(., read_csv("raw-lists/Prime-Rentals-Oscar.csv") %>% mutate(Service = "Prime Rentals")) %>%
+  rbind(., read_csv("raw-lists/Prime-Rentals-Times.csv") %>% mutate(Service = "Prime Rentals"))
 
 ## Oscar Ceremony Data for Summary and Graph
 OscarCeremonies.corrected <- read_csv("raw-lists/OscarCeremonies.csv")
