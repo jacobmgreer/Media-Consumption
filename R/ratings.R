@@ -136,6 +136,19 @@ left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.
   select(-Year) %>%
   write.csv(.,"datasets/Oscars/OscarsSummary.csv", row.names = FALSE)
 
+## Award Category Summary
+OscarsCorrected %>%
+  filter(FilmID != "") %>%
+  filter(!AwardType %in% c("Writing, Title","Director,Assistant","Direction, Dance")) %>%
+  select(AwardCeremony, AwardType, FilmID, Rating) %>%
+  distinct %>%
+  dplyr::group_by(FilmID) %>%
+  mutate(Seen = ifelse(is.na(Rating), FALSE, TRUE)) %>%
+  dplyr::group_by(AwardCeremony, AwardType) %>%
+  dplyr::summarise(Percentage = round(n_distinct(FilmID[Seen == TRUE]) / n_distinct(FilmID), digits = 1)) %>%
+  spread(., AwardType, Percentage, fill = NA) %>%
+  write.csv(.,"datasets/Oscars/AwardTypeSummary.csv", row.names = FALSE)
+
 ## Award Summary
 OscarsCorrected %>%
   filter(FilmID != "") %>%
