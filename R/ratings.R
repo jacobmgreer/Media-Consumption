@@ -70,10 +70,12 @@ test <-
       imdbVotes = as.double(imdbVotes)
     ) } else { NULL }
 
-myratings <- bind_rows(ratingslist, test) %>%
-  arrange(desc(Rated.Date)) %>%
-  select(-Title) %T>%
-  write.csv(., "datasets/ratings.csv", row.names = FALSE)
+myratings <-
+  if (nrow(anti_join(rated, ratingslist, by="IMDBid")) > 0) {
+    bind_rows(ratingslist, test) %>%
+    arrange(desc(Rated.Date)) %>%
+    select(-Title) %T>%
+    write.csv(., "datasets/ratings.csv", row.names = FALSE)} else { ratingslist }
 
 ## Prime Availability
 Streaming.Available <-
