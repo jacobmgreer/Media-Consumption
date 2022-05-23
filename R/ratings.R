@@ -51,21 +51,26 @@ for (i in 1:ceiling(count/100)) {
   RATINGS <- paste0("https://www.imdb.com",link %>% html_nodes(.,'#ratings-container > div.footer.filmosearch > div > div > a.flat-button.lister-page-next.next-page') %>% html_attr("href"))
 }
 
-test <- anti_join(rated, ratingslist, by="IMDBid") %>%
-  rowwise %>%
-  mutate(Response = list(fromJSON(content(GET(paste0('https://www.omdbapi.com/?i=',IMDBid,'&apikey=',OMDBkey)), 'text'), simplifyVector = TRUE, flatten = TRUE))) %>%
-  unnest_wider(Response) %>%
-  filter(Response != "False") %>%
-  unnest(cols = c(Ratings), names_sep = ".") %>%
-  spread(Ratings.Source, Ratings.Value) %>%
-  select(-Response) %>%
-  mutate(
-    Rated.Date = as.Date(str_remove(Rated.Date, "Rated on "), format = "%d %b %Y"),
-    Rated.Year = as.double(paste0(year(Rated.Date),".",yday(Rated.Date))),
-    Released = year(as.Date(Released, format = "%d %b %Y")),
-    Rating = as.numeric(Rating),
-    imdbVotes = as.double(imdbVotes)
-  )
+if (nrow(anti_join(rated, ratingslist, by="IMDBid")) > 0) {
+  test <- anti_join(rated, ratingslist, by="IMDBid") %>%
+    rowwise %>%
+    mutate(Response = list(fromJSON(content(GET(paste0('https://www.omdbapi.com/?i=',IMDBid,'&apikey=',OMDBkey)), 'text'), simplifyVector = TRUE, flatten = TRUE))) %>%
+    unnest_wider(Response) %>%
+    filter(Response != "False") %>%
+    unnest(cols = c(Ratings), names_sep = ".") %>%
+    spread(Ratings.Source, Ratings.Value) %>%
+    select(-Response) %>%
+    mutate(
+      Rated.Date = as.Date(str_remove(Rated.Date, "Rated on "), format = "%d %b %Y"),
+      Rated.Year = as.double(paste0(year(Rated.Date),".",yday(Rated.Date))),
+      Released = year(as.Date(Released, format = "%d %b %Y")),
+      Rating = as.numeric(Rating),
+      imdbVotes = as.double(imdbVotes)
+    )
+}
+else {
+  test <- NULL
+}
 
 myratings <- bind_rows(ratingslist, test) %>%
   arrange(desc(Rated.Date)) %>%
