@@ -51,8 +51,10 @@ for (i in 1:ceiling(count/100)) {
   RATINGS <- paste0("https://www.imdb.com",link %>% html_nodes(.,'#ratings-container > div.footer.filmosearch > div > div > a.flat-button.lister-page-next.next-page') %>% html_attr("href"))
 }
 
-if (nrow(anti_join(rated, ratingslist, by="IMDBid")) > 0) {
-  test <- anti_join(rated, ratingslist, by="IMDBid") %>%
+
+test <-
+  if (nrow(anti_join(rated, ratingslist, by="IMDBid")) > 0) {
+    anti_join(rated, ratingslist, by="IMDBid") %>%
     rowwise %>%
     mutate(Response = list(fromJSON(content(GET(paste0('https://www.omdbapi.com/?i=',IMDBid,'&apikey=',OMDBkey)), 'text'), simplifyVector = TRUE, flatten = TRUE))) %>%
     unnest_wider(Response) %>%
@@ -66,11 +68,7 @@ if (nrow(anti_join(rated, ratingslist, by="IMDBid")) > 0) {
       Released = year(as.Date(Released, format = "%d %b %Y")),
       Rating = as.numeric(Rating),
       imdbVotes = as.double(imdbVotes)
-    )
-}
-else {
-  test <- NULL
-}
+    ) } else { NULL }
 
 myratings <- bind_rows(ratingslist, test) %>%
   arrange(desc(Rated.Date)) %>%
