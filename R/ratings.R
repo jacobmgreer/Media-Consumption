@@ -96,10 +96,10 @@ Streaming.Available <-
 ## Oscar Ceremony Data for Summary and Graph
 OscarCeremonies.corrected <- read_csv("raw-lists/OscarCeremonies.csv")
 OscarsCorrected <- left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.Date), by=c("FilmID" = "IMDBid")) %>%
-  left_join(., Streaming.Available, by="IMDBid") %>%
-  left_join(., Seen.AFISilver %>% mutate(IMDBid = Const, AFISilver = "Y"), by="IMDBid") %>%
-  left_join(., Seen.Theater %>% mutate(IMDBid = Const, Theater = "Y"), by="IMDBid") %>%
-  left_join(., watchlist %>% mutate(IMDBid = Const, Watchlist = "Y"), by="IMDBid")
+  left_join(., Streaming.Available, by=c("FilmID" = "IMDBid")) %>%
+  left_join(., Seen.AFISilver %>% mutate(IMDBid = Const, AFISilver = "Y"), by=c("FilmID" = "IMDBid")) %>%
+  left_join(., Seen.Theater %>% mutate(IMDBid = Const, Theater = "Y"), by=c("FilmID" = "IMDBid")) %>%
+  left_join(., watchlist %>% mutate(IMDBid = Const, Watchlist = "Y"), by=c("FilmID" = "IMDBid"))
 write.csv(OscarsCorrected,"datasets/Oscars/OscarsTracking.csv", row.names = FALSE)
 left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.Date), by=c("FilmID" = "IMDBid")) %>%
   filter(FilmID != "") %>%
@@ -230,10 +230,7 @@ OscarsCorrected %>%
 combinedNYT1000 <-
   left_join(read_csv("raw-lists/nyt1000.csv"), myratings %>% select(IMDBid, Rating, Rated.Date), by="IMDBid") %>%
     mutate(Seen = ifelse(is.na(Rating), "No", "Yes")) %>%
-    left_join(., Streaming.Available, by="IMDBid") %>%
-    left_join(., Seen.AFISilver %>% mutate(IMDBid = Const, AFISilver = "Y"), by="IMDBid") %>%
-    left_join(., Seen.Theater %>% mutate(IMDBid = Const, Theater = "Y"), by="IMDBid") %>%
-    left_join(., watchlist %>% mutate(IMDBid = Const, Watchlist = "Y"), by="IMDBid") %T>%
+    left_join(., Streaming.Available, by="IMDBid") %T>%
     write.csv(.,"datasets/NYT1000/NYT1000Data.csv", row.names = FALSE)
 combinedNYT1000 %>%
   dplyr::group_by(ItemYear = as.numeric(ItemYear)) %>%
