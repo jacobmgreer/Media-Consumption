@@ -16,20 +16,17 @@ ratingslist <- read_csv("datasets/ratings.csv") %>% mutate(totalSeasons = as.cha
 
 ## WATCHLIST
 watchlist <-
-read.csv("https://www.imdb.com/list/ls003235325/export") %>%
-mutate(Watchlist = "Y") %T>%
+read.csv("https://www.imdb.com/list/ls003235325/export") %T>%
 write.csv(.,"datasets/watchlist.csv", row.names = FALSE)
 
 ## Seen at AFI
 Seen.AFISilver <-
-read.csv("https://www.imdb.com/list/ls507245240/export") %>%
-mutate(AFI = "Y") %T>%
+read.csv("https://www.imdb.com/list/ls507245240/export") %T>%
 write.csv(.,"datasets/AFI-Silver.csv", row.names = FALSE)
 
 ## Seen at a Theater
 Seen.Theater <-
-read.csv("https://www.imdb.com/list/ls507032905/export") %>%
-mutate(Theater = "Y") %T>%
+read.csv("https://www.imdb.com/list/ls507032905/export") %T>%
 write.csv(.,"datasets/theater.csv", row.names = FALSE)
 
 # ## Holidaze
@@ -100,9 +97,9 @@ Streaming.Available <-
 OscarCeremonies.corrected <- read_csv("raw-lists/OscarCeremonies.csv")
 OscarsCorrected <- left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.Date), by=c("FilmID" = "IMDBid")) %>%
   left_join(., Streaming.Available, by=c("FilmID" = "IMDBid")) %>%
-  left_join(., Seen.AFISilver, by=c("FilmID" = "IMDBid")) %>%
-  left_join(., Seen.Theater, by=c("FilmID" = "IMDBid")) %>%
-  left_join(., watchlist, by=c("FilmID" = "IMDBid"))
+  left_join(., Seen.AFISilver %>% mutate(FilmID = Const, AFISilver = "Y"), by=c("FilmID" = "FilmID")) %>%
+  left_join(., Seen.Theater %>% mutate(FilmID = Const, Theater = "Y"), by=c("FilmID" = "FilmID")) %>%
+  left_join(., watchlist %>% mutate(FilmID = Const, Watchlist = "Y"), by=c("FilmID" = "FilmID"))
 write.csv(OscarsCorrected,"datasets/Oscars/OscarsTracking.csv", row.names = FALSE)
 left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.Date), by=c("FilmID" = "IMDBid")) %>%
   filter(FilmID != "") %>%
