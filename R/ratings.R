@@ -96,7 +96,7 @@ Streaming.Available <-
 ## Oscar Ceremony Data for Summary and Graph
 OscarCeremonies.corrected <- read_csv("raw-lists/OscarCeremonies.csv")
 OscarsCorrected <- left_join(OscarCeremonies.corrected, myratings %>% select(IMDBid, Rating, Rated.Date), by=c("FilmID" = "IMDBid")) %>%
-  left_join(., Streaming.Available, by=c("FilmID" = "IMDBid")) %>%
+  left_join(., Streaming.Available, by="IMDBid") %>%
   left_join(., Seen.AFISilver %>% mutate(IMDBid = Const, AFISilver = "Y"), by="IMDBid") %>%
   left_join(., Seen.Theater %>% mutate(IMDBid = Const, Theater = "Y"), by="IMDBid") %>%
   left_join(., watchlist %>% mutate(IMDBid = Const, Watchlist = "Y"), by="IMDBid")
