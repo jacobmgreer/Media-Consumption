@@ -88,8 +88,7 @@ Streaming.Available <-
                        read_csv("raw-lists/Prime-Rentals-Times.csv")) %>% distinct,
                      bind_rows(
                        read_csv("raw-lists/Prime-Free-Oscar.csv"),
-                       read_csv("raw-lists/Prime-Free-Times.csv")) %>% distinct)) %>%
-  mutate(Service = "Prime Rentals")
+                       read_csv("raw-lists/Prime-Free-Times.csv")) %>% distinct) %>% mutate(Service = "Prime Rentals"))
 
 ## Oscar Ceremony Data for Summary and Graph
 OscarCeremonies.corrected <- read_csv("raw-lists/OscarCeremonies.csv")
