@@ -28,7 +28,7 @@ jobs:
             any::numform
 
       - name: AFI Silver Showtimes
-        run: Rscript R/AFI-Silver.R
+        run: Rscript R/AFISilver.R
 
       - name: Commit files
         run: |
