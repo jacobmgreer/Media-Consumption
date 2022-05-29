@@ -1,4 +1,4 @@
-name: AFI-Silver Calendar
+name: AFI Silver Calendar
 on: [workflow_dispatch]
 
 # on:
@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@v2
         with:
-          use-public-rspm: true
+            use-public-rspm: true
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 2
@@ -27,7 +27,7 @@ jobs:
             any::magrittr
             any::numform
 
-    - name: AFI-Silver Showtimes
+    - name: AFI Silver Showtimes
       run: Rscript R/AFI-Silver.R
 
     - name: Commit files
