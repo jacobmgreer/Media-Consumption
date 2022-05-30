@@ -103,4 +103,4 @@ ScreeningCal(showtimes %>% filter(grepl('2', ScreenTheatre))) %>%
 ScreeningCal(showtimes %>% filter(grepl('3', ScreenTheatre))) %>%
   write(., file = "datasets/AFI-Silver/Theater3.ics")
 
-rm(page,link,i)
+rm(page,link,i,ics_body,ics_events,ics_footer,ics_header,ScreeningCal,theatres)
